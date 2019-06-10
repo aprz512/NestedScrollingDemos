@@ -1,5 +1,10 @@
 <resources>
     <string name="app_name">NestedScrollDemos</string>
     <string name="hello_world">Hello World</string>
+
     <string name="behavior_sample_title">com.aprz.nestedscrolldemos.custombehavior.custom1.SimpleTitleBehavior</string>
+    <string name="custom2_behavior_title">com.aprz.nestedscrolldemos.custombehavior.custom2.TitleBehavior</string>
+    <string name="custom2_behavior_list">com.aprz.nestedscrolldemos.custombehavior.custom2.ListBehavior</string>
+
+    <string name="rank_item_text">aprz = %1$s</string>
 </resources>

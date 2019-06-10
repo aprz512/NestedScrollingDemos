@@ -7,6 +7,7 @@ import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import com.aprz.nestedscrolldemos.custombehavior.custom1.CustomBehaviorActivity1
+import com.aprz.nestedscrolldemos.custombehavior.custom2.CustomBehaviorActivity2
 import com.aprz.nestedscrolldemos.wxsportrank.SportRankActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -15,13 +16,15 @@ class MainActivity : AppCompatActivity() {
     private val texts: List<String> =
         listOf(
             "微信运动排行榜",
-            "自定义behavior01"
+            "自定义behavior01",
+            "自定义behavior02"
         )
 
     private val activityClass: List<Class<out AppCompatActivity>> =
         listOf(
             SportRankActivity::class.java,
-            CustomBehaviorActivity1::class.java
+            CustomBehaviorActivity1::class.java,
+            CustomBehaviorActivity2::class.java
         )
 
     override fun onCreate(savedInstanceState: Bundle?) {

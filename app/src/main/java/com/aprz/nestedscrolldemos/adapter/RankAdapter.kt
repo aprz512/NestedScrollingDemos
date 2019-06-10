@@ -45,7 +45,7 @@ class RankViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private var steps: TextView = itemView.findViewById(R.id.steps)
 
     fun bind(s: String, position: Int) {
-        name.text = "aprz = ${position}"
+        name.text = String.format(itemView.resources.getString(R.string.rank_item_text), position)
         steps.text = s
     }
 
