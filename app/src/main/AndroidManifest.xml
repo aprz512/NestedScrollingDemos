@@ -17,6 +17,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".wxsportrank.SportRankActivity"/>
+        <activity android:name=".custombehavior.custom1.CustomBehaviorActivity1" />
     </application>
 
 </manifest>

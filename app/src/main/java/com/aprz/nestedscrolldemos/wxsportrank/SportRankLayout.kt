@@ -154,7 +154,6 @@ open class SportRankLayout @JvmOverloads constructor(
         type: Int
     ) {
         Log.e(TAG, "onNestedScroll, dyConsumed = $dyConsumed, dyUnconsumed = $dyUnconsumed")
-
     }
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {

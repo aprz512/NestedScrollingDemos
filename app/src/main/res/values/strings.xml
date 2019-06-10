@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">NestedScrollDemos</string>
+    <string name="hello_world">Hello World</string>
+    <string name="behavior_sample_title">com.aprz.nestedscrolldemos.custombehavior.custom1.SimpleTitleBehavior</string>
 </resources>
