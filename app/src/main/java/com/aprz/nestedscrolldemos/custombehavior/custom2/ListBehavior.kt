@@ -28,11 +28,11 @@ class ListBehavior : CoordinatorLayout.Behavior<RecyclerView> {
 
     override fun onDependentViewChanged(parent: CoordinatorLayout, child: RecyclerView, dependency: View): Boolean {
         // 让 child 跟随 dependency
-//        var y = dependency.bottom
-//        if (y < 0) {
-//            y = 0
-//        }
-        child.top = Math.max(0, dependency.y.roundToInt() + dependency.height)
+        val bottom = dependency.y.roundToInt() + dependency.height
+        if (bottom < 0) {
+            return false
+        }
+        child.top = bottom
         return true
     }
 }

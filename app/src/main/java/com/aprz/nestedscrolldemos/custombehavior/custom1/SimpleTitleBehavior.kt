@@ -48,6 +48,9 @@ class SimpleTitleBehavior : CoordinatorLayout.Behavior<View> {
 
         // 计算百分比，因为 dependency 要走 dependencyInitY - child.height，child 要走 child.height，才能搞好重合
         val percent = 1f * (dependency.y - child.height) / (dependencyInitY - child.height)
+        if (percent < 0) {
+            return false
+        }
         // 这里取负值，表示刚开始的时候看不见，最后才能完全看见
         child.translationY = -child.height * Math.max(0f, percent)
         // 设置透明度
