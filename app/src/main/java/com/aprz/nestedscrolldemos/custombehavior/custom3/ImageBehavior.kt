@@ -72,6 +72,9 @@ class ImageBehavior : CoordinatorLayout.Behavior<View> {
         consumed: IntArray
     ) {
 
+        // 在这里处理向下滚动，因为RecyclerView 先滚动完，然后还有未消耗的就给 ImageView 处理
+        // 这里让 ImageView 下移就好了
+        // 感觉这里写逻辑比之前全部在 onNestedPreScroll 中处理逻辑要清晰，比较符合 NestedScrolling 的思想
         if (dyUnconsumed > 0) {
             return
         }

@@ -2,7 +2,6 @@ package com.aprz.nestedscrolldemos.custombehavior.custom3
 
 import android.content.Context
 import android.util.AttributeSet
-import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -34,7 +33,6 @@ class ViewPagerBehavior : CoordinatorLayout.Behavior<View> {
         val childOffset =
             Math.abs(dependency.translationY) * getViewPagerScrollRange(child.context) / getImageScrollRange(child.context)
         child.translationY = (getImageScrollStartY(child.context) - childOffset.roundToInt()).toFloat()
-        Log.e("d", "${child.translationY}")
         return true
     }
 
@@ -44,6 +42,7 @@ class ViewPagerBehavior : CoordinatorLayout.Behavior<View> {
             lastY = ev.y
         }
 
+        // 刚开始不处理横向滑动事件
         if (ev.actionMasked == MotionEvent.ACTION_MOVE) {
             val currX = ev.x
             val currY = ev.y

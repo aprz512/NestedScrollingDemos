@@ -7,4 +7,6 @@
     <string name="custom2_behavior_list">com.aprz.nestedscrolldemos.custombehavior.custom2.ListBehavior</string>
 
     <string name="rank_item_text">aprz = %1$s</string>
+
+    <string name="pull_me">拉我</string>
 </resources>

@@ -18,10 +18,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".wxsportrank.SportRankActivity" />
+        <activity android:name="com.aprz.nestedscrolldemos.nestedscroll.wxsportrank.SportRankActivity" />
         <activity android:name=".custombehavior.custom1.CustomBehaviorActivity1" />
         <activity android:name=".custombehavior.custom2.CustomBehaviorActivity2" />
         <activity android:name=".custombehavior.custom3.CustomBehaviorActivity3" android:theme="@style/NoTitleAppTheme" />
+        <activity android:name=".drag.demo01.DragActivity1" />
     </application>
 
 </manifest>

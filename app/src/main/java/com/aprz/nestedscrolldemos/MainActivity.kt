@@ -9,7 +9,8 @@ import androidx.core.view.ViewCompat
 import com.aprz.nestedscrolldemos.custombehavior.custom1.CustomBehaviorActivity1
 import com.aprz.nestedscrolldemos.custombehavior.custom2.CustomBehaviorActivity2
 import com.aprz.nestedscrolldemos.custombehavior.custom3.CustomBehaviorActivity3
-import com.aprz.nestedscrolldemos.wxsportrank.SportRankActivity
+import com.aprz.nestedscrolldemos.drag.demo01.DragActivity1
+import com.aprz.nestedscrolldemos.nestedscroll.wxsportrank.SportRankActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -19,7 +20,8 @@ class MainActivity : AppCompatActivity() {
             "微信运动排行榜",
             "自定义behavior01",
             "自定义behavior02",
-            "自定义behavior03"
+            "自定义behavior03",
+            "ViewDragHelper使用01"
         )
 
     private val activityClass: List<Class<out AppCompatActivity>> =
@@ -27,7 +29,8 @@ class MainActivity : AppCompatActivity() {
             SportRankActivity::class.java,
             CustomBehaviorActivity1::class.java,
             CustomBehaviorActivity2::class.java,
-            CustomBehaviorActivity3::class.java
+            CustomBehaviorActivity3::class.java,
+            DragActivity1::class.java
         )
 
     override fun onCreate(savedInstanceState: Bundle?) {

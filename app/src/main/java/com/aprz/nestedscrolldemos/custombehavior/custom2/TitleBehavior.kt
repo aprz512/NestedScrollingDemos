@@ -49,7 +49,7 @@ class TitleBehavior : CoordinatorLayout.Behavior<TextView> {
             return
         }
 
-        // 这里的逻辑与 com.aprz.nestedscrolldemos.wxsportrank.SportRankLayout.onNestedPreScroll 的差不多
+        // 这里的逻辑与 com.aprz.nestedscrolldemos.nestedscroll.wxsportrank.SportRankLayout.onNestedPreScroll 的差不多
 
 
         // 因为在第一个item完全可见的情况下，TextView 需要先处理滚动，其他的情况全部让 RecyclerView 处理
