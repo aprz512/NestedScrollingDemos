@@ -23,6 +23,7 @@
         <activity android:name=".custombehavior.custom2.CustomBehaviorActivity2" />
         <activity android:name=".custombehavior.custom3.CustomBehaviorActivity3" android:theme="@style/NoTitleAppTheme" />
         <activity android:name=".drag.demo01.DragActivity1" />
+        <activity android:name=".drag.demo02.YoutubeActivity" />
     </application>
 
 </manifest>
