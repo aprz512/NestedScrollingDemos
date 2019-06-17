@@ -29,11 +29,12 @@ class YoutubeLayout @JvmOverloads constructor(
     }
 
     var verticalRange = 0
+    private var verticalRangeOffset = 0
     private lateinit var videoDetailView: View
     private lateinit var videoView: View
+    private lateinit var videoDetailContainerView: View
     private val videoMiniWidth = (context.resources.displayMetrics.density * 150).roundToInt()
-    // 这 100 个距离用来做特殊缩放
-    val scaleDistance = 100
+
 
     private val viewDragHelper: ViewDragHelper = ViewDragHelper.create(this, object : ViewDragHelper.Callback() {
 
@@ -45,7 +46,8 @@ class YoutubeLayout @JvmOverloads constructor(
         override fun onViewPositionChanged(changedView: View, left: Int, top: Int, dx: Int, dy: Int) {
             super.onViewPositionChanged(changedView, left, top, dx, dy)
             changeVideo(changedView, top)
-            changedViewDetail(top)
+            changeVideoDetail(top)
+            changeVideoTitle(top)
         }
 
         override fun getViewVerticalDragRange(child: View): Int {
@@ -65,11 +67,18 @@ class YoutubeLayout @JvmOverloads constructor(
 
     })
 
-    private fun changedViewDetail(top: Int) {
+    private fun changeVideoTitle(top: Int) {
+        val scaleY = 0.3f + 0.7f * (1 - top.toFloat() / verticalRange)
+        if (scaleY <= 0.4f) {
+
+        }
+    }
+
+    private fun changeVideoDetail(top: Int) {
         videoDetailView.pivotY = videoDetailView.measuredHeight.toFloat()
         // 让 videoDetailView 的 top 与 videoView 的 top 对齐
-        videoDetailView.scaleY = 1 - top.toFloat() / verticalRange
-//            1 - 1f * (top + (videoView.measuredHeight * (1 - videoView.scaleY))) / videoDetailView.measuredHeight
+        videoDetailView.scaleY =
+            1 - 1f * (top + videoView.translationY + (videoView.measuredHeight * (1 - videoView.scaleY))) / videoDetailView.measuredHeight
     }
 
     private fun changeVideo(changedView: View, top: Int) {
@@ -78,34 +87,47 @@ class YoutubeLayout @JvmOverloads constructor(
         changedView.pivotX = 0f
 
         // 将缩放范围限制到 【1，0.3】
-        var scaleY = 0.3f + 0.7f * (1 - top.toFloat() / verticalRange)
-//        if (scaleY >= 1f) {
-//            scaleY = 1f
-//        }
-        changedView.scaleY = scaleY
+        val scaleY = 0.3f + 0.7f * (1 - top.toFloat() / verticalRange)
 
-        Log.e("d", "t = ${changedView.top}")
+        // 在 【1，0.4】 的时候，让它走到底部
+        if (scaleY >= 0.4f) {
+            changedView.translationY = 10f * verticalRangeOffset / 6f * (1f - scaleY)
+        } else {
+            // 在 【0.4， 0.3】 的时候，让它停在底部
+            changedView.translationY = (1f - ((1f - scaleY) * 10f - 6f)) * verticalRangeOffset
+        }
+
+        if (changedView.translationY > verticalRangeOffset) {
+            changedView.translationY = verticalRangeOffset.toFloat()
+        }
+
+        changedView.scaleY = scaleY
 
         // 当缩放值小于0.6的时候，对x也进行缩放
         // x 范围为 【measuredWidth, videoMiniWidth】
-//        if (scaleY <= 0.6f) {
-//            var scaleX = 1 - (0.6f - scaleY) / (0.6f - 0.3f) + videoMiniWidth * 1f / measuredWidth
-//            if (scaleX > 1f) {
-//                scaleX = 1f
-//            }
-//            changedView.scaleX = scaleX
-//        }
+        if (scaleY <= 0.4f) {
+            var scaleX = 1 - (0.4f - scaleY) / (0.4f - 0.3f) + videoMiniWidth * 1f / measuredWidth
+            if (scaleX > 1f) {
+                scaleX = 1f
+            }
+            changedView.scaleX = scaleX
+        }
     }
 
     override fun onFinishInflate() {
         super.onFinishInflate()
         videoDetailView = findViewById(R.id.video_detail)
         videoView = findViewById(R.id.video)
+        videoDetailContainerView = findViewById(R.id.video_detail_container)
     }
 
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
         super.onLayout(changed, left, top, right, bottom)
-        verticalRange = videoDetailView.measuredHeight - videoView.measuredHeight - 100
+        verticalRange = videoDetailView.measuredHeight - videoView.measuredHeight
+        verticalRangeOffset = (verticalRange / 7f).roundToInt()
+        val vdcvLeft = videoDetailContainerView.left
+        val vdcvRight = videoDetailContainerView.right
+        videoDetailContainerView.layout(vdcvLeft, bottom - (videoView.height * 0.3f).roundToInt(), vdcvRight, bottom)
     }
 
     override fun onInterceptTouchEvent(ev: MotionEvent?): Boolean {
