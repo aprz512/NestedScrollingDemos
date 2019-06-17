@@ -3,7 +3,6 @@ package com.aprz.nestedscrolldemos.drag.demo02
 import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
-import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -48,6 +47,8 @@ class YoutubeLayout @JvmOverloads constructor(
             changeVideo(changedView, top)
             changeVideoDetail(top)
             changeVideoTitle(top)
+            changePauseButton(top)
+            changeCloseButton(top)
         }
 
         override fun getViewVerticalDragRange(child: View): Int {
@@ -67,10 +68,22 @@ class YoutubeLayout @JvmOverloads constructor(
 
     })
 
+    private fun changeCloseButton(top: Int) {
+
+    }
+
+    private fun changePauseButton(top: Int) {
+
+    }
+
     private fun changeVideoTitle(top: Int) {
         val scaleY = 0.3f + 0.7f * (1 - top.toFloat() / verticalRange)
         if (scaleY <= 0.4f) {
-
+            val scaleX = videoView.scaleX
+            videoDetailContainerView.scrollX = -(videoView.measuredWidth * scaleX - videoMiniWidth).roundToInt()
+            videoDetailContainerView.alpha = 1f
+        } else {
+            videoDetailContainerView.alpha = 0f
         }
     }
 
@@ -128,6 +141,7 @@ class YoutubeLayout @JvmOverloads constructor(
         val vdcvLeft = videoDetailContainerView.left
         val vdcvRight = videoDetailContainerView.right
         videoDetailContainerView.layout(vdcvLeft, bottom - (videoView.height * 0.3f).roundToInt(), vdcvRight, bottom)
+        videoDetailContainerView.alpha = 0f
     }
 
     override fun onInterceptTouchEvent(ev: MotionEvent?): Boolean {
