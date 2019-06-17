@@ -15,7 +15,8 @@ import kotlin.math.roundToInt
  *
  * write on 2019/6/14
  *
- * Class desc:
+ * Class desc: 这个效果花了两天，但是很不满意，一是拖动的不舒服，感觉其中的比例没有调整好
+ * 二是有bug，因为我是直接看着效果写的，所以 0.4 是一个分割点，拖动的太快的时候，会直接跳过这个分割点
  */
 class YoutubeLayout @JvmOverloads constructor(
     context: Context,
