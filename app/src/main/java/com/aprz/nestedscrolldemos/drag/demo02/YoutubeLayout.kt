@@ -17,6 +17,9 @@ import kotlin.math.roundToInt
  *
  * Class desc: 这个效果花了两天，但是很不满意，一是拖动的不舒服，感觉其中的比例没有调整好
  * 二是有bug，因为我是直接看着效果写的，所以 0.4 是一个分割点，拖动的太快的时候，会直接跳过这个分割点
+ * 三是有的效果为了简单，我是用 scale 做的，触摸方面有点bug
+ *
+ * 感觉，用两个布局比较好做，等VideoView到了底部，就让另一个布局显示出来，会少很多计算，而且适配性也好
  */
 class YoutubeLayout @JvmOverloads constructor(
     context: Context,
