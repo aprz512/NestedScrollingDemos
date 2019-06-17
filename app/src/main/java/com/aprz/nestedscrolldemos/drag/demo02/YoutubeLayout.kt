@@ -32,6 +32,8 @@ class YoutubeLayout @JvmOverloads constructor(
     private lateinit var videoDetailView: View
     private lateinit var videoView: View
     private lateinit var videoDetailContainerView: View
+    private lateinit var videoPlayButton: View
+    private lateinit var videoCloseButton: View
     private val videoMiniWidth = (context.resources.displayMetrics.density * 150).roundToInt()
 
 
@@ -47,7 +49,7 @@ class YoutubeLayout @JvmOverloads constructor(
             changeVideo(changedView, top)
             changeVideoDetail(top)
             changeVideoTitle(top)
-            changePauseButton(top)
+            changePlayButton(top)
             changeCloseButton(top)
         }
 
@@ -69,11 +71,36 @@ class YoutubeLayout @JvmOverloads constructor(
     })
 
     private fun changeCloseButton(top: Int) {
-
+        val scaleY = 0.3f + 0.7f * (1 - top.toFloat() / verticalRange)
+        if (scaleY <= 0.4f) {
+            val scaleX = videoView.scaleX
+            videoCloseButton.scrollX = -(videoView.measuredWidth * scaleX
+                    - videoDetailContainerView.measuredWidth
+                    - videoPlayButton.measuredWidth
+                    - videoMiniWidth).roundToInt()
+            if (videoCloseButton.scrollX > 0) {
+                videoCloseButton.scrollX = 0
+            }
+            videoCloseButton.alpha = 1f
+        } else {
+            videoCloseButton.alpha = 0f
+        }
     }
 
-    private fun changePauseButton(top: Int) {
-
+    private fun changePlayButton(top: Int) {
+        val scaleY = 0.3f + 0.7f * (1 - top.toFloat() / verticalRange)
+        if (scaleY <= 0.4f) {
+            val scaleX = videoView.scaleX
+            videoPlayButton.scrollX = -(videoView.measuredWidth * scaleX
+                    - videoDetailContainerView.measuredWidth
+                    - videoMiniWidth).roundToInt()
+            if (videoPlayButton.scrollX > 0) {
+                videoPlayButton.scrollX = 0
+            }
+            videoPlayButton.alpha = 1f
+        } else {
+            videoPlayButton.alpha = 0f
+        }
     }
 
     private fun changeVideoTitle(top: Int) {
@@ -132,6 +159,8 @@ class YoutubeLayout @JvmOverloads constructor(
         videoDetailView = findViewById(R.id.video_detail)
         videoView = findViewById(R.id.video)
         videoDetailContainerView = findViewById(R.id.video_detail_container)
+        videoCloseButton = findViewById(R.id.close)
+        videoPlayButton = findViewById(R.id.play)
     }
 
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
@@ -142,6 +171,22 @@ class YoutubeLayout @JvmOverloads constructor(
         val vdcvRight = videoDetailContainerView.right
         videoDetailContainerView.layout(vdcvLeft, bottom - (videoView.height * 0.3f).roundToInt(), vdcvRight, bottom)
         videoDetailContainerView.alpha = 0f
+
+        videoCloseButton.layout(
+            videoCloseButton.left,
+            bottom - (videoView.height * 0.3f).roundToInt(),
+            videoCloseButton.right,
+            bottom
+        )
+        videoCloseButton.alpha = 0f
+
+        videoPlayButton.layout(
+            videoPlayButton.left,
+            bottom - (videoView.height * 0.3f).roundToInt(),
+            videoPlayButton.right,
+            bottom
+        )
+        videoPlayButton.alpha = 0f
     }
 
     override fun onInterceptTouchEvent(ev: MotionEvent?): Boolean {
